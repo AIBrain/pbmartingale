@@ -41,8 +41,12 @@ namespace PeerBitAutomater
 
         }
 
- 
 
+
+        /// <summary>
+        /// Logins to Peer Bit
+        /// </summary>
+        /// <returns>Whether successful</returns>
         public Boolean LoginPeerBet()
         {
             Boolean SuccessLogin = false;
@@ -72,6 +76,10 @@ namespace PeerBitAutomater
             return (SuccessLogin);
         }
 
+        /// <summary>
+        /// Refreshes the Peer Bet user info.
+        /// </summary>
+        /// <returns></returns>
         public Boolean RefreshPeerBetGetUserInfo()
         {
             Boolean returnOk = false;

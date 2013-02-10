@@ -1,0 +1,12 @@
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\PeerBitAutomater.exe.config
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.Form1.resources
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.Properties.Resources.resources
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.csproj.GenerateResource.Cache
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\PeerBitAutomater.exe
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\PeerBitAutomater.pdb
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\PHPSerializationLibrary.dll
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.exe
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.pdb
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\Newtonsoft.Json.dll
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\Newtonsoft.Json.xml
+c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.csprojResolveAssemblyReference.cache

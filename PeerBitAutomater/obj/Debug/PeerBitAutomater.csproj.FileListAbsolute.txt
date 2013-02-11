@@ -10,3 +10,13 @@ c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAu
 c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\Newtonsoft.Json.dll
 c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\bin\Debug\Newtonsoft.Json.xml
 c:\users\duncan\documents\visual studio 2012\Projects\PeerBitAutomater\PeerBitAutomater\obj\Debug\PeerBitAutomater.csprojResolveAssemblyReference.cache
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\bin\Debug\PeerBitAutomater.exe.config
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.exe
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.pdb
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\bin\Debug\PeerBitAutomater.exe
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\bin\Debug\PeerBitAutomater.pdb
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.Form1.resources
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.Properties.Resources.resources
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.csproj.GenerateResource.Cache

@@ -116,5 +116,38 @@ namespace PeerBitAutomater
             return (returnOk);
 
         }
+
+        public Boolean GetLowestInstantHalfChance(ref String OrderID, ref Double TicketPrice)
+        {
+            Boolean goodReturn = false;
+
+            Double lowestTicketPrice = 99.0;
+            String assocOrderId = "";
+
+            PBWebRequest pbRequest = new PBWebRequest();
+
+            String strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
+
+            var rafflesResults = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(strGetARafflesResponse);
+
+            foreach (var raffle in rafflesResults)
+            {
+                if (raffle.instant == 1 && raffle.tickets_total == 2)
+                {
+                    if (raffle.ticket_price < lowestTicketPrice)
+                    {
+                        assocOrderId = raffle.raffle_id;
+                        lowestTicketPrice = raffle.ticket_price;
+                    }
+                }
+            }
+
+            OrderID = assocOrderId;
+            TicketPrice = lowestTicketPrice;
+
+            return(goodReturn);
+        }
+
+
     }
 }

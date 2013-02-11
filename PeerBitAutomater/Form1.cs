@@ -27,14 +27,17 @@ namespace PeerBitAutomater
 
             PeerBetAPI pbAPI = new PeerBetAPI("sal002", "afsgroup");
 
+            this.lbl24HourProfit.Text = pbAPI.TodayProfitFromPB.ToString();
+            this.lblBalance.Text = pbAPI.Balance.ToString();
             //pbAPI.LoginPeerBet();
             String lowestOrderID = "";
             Double lowstOrderPrice = 0.0;
 
-            pbAPI.GetLowestInstantHalfChance(ref lowestOrderID, ref lowstOrderPrice);
-            this.textBox1.Text = pbAPI.APIKey;//single string
+            //pbAPI.GetLowestInstantHalfChance(ref lowestOrderID, ref lowstOrderPrice);
+            pbAPI.GetClosestOrderInstantDouble(Double.Parse(this.textBox1.Text), ref lowestOrderID, ref lowstOrderPrice);
+            //this.textBox1.Text = pbAPI.APIKey;//single string
             this.textBox2.Text = lowestOrderID;
-            this.textBox3.Text = lowstOrderPrice.ToString() ;
+            this.textBox3.Text = lowstOrderPrice.ToString();
          /*       String strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
  
                 var results = JsonConvert.DeserializeObject<dynamic>(strGetARafflesResponse, new JsonSerializerSettings

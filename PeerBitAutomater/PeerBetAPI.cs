@@ -32,6 +32,11 @@ namespace PeerBitAutomater
             get { return _balance; }
         }
 
+        public Double TodayProfitFromPB
+        {
+            get { return _TodayProfitFromPB; }
+        }
+
         public PeerBetAPI(String user, String pass)
         {
             _PBUser = user;
@@ -146,6 +151,48 @@ namespace PeerBitAutomater
             TicketPrice = lowestTicketPrice;
 
             return(goodReturn);
+        }
+
+        /// <summary>
+        /// Gets the closest order to the ticket amount specified.
+        /// Searches only instant orders with a double value
+        /// </summary>
+        /// <param name="ticketAmount">The ticket amount.</param>
+        /// <param name="OrderID">The order ID.</param>
+        /// <param name="TicketPrice">The ticket price.</param>
+        /// <returns></returns>
+        public Boolean GetClosestOrderInstantDouble(Double ticketAmount, ref String OrderID, ref Double TicketPrice)
+        {
+            Boolean goodReturn = false;
+
+            Double lastRemainder = 99.0;
+            String assocOrderId = "";
+            Double associatedTicketPrice = 0.0;
+
+            PBWebRequest pbRequest = new PBWebRequest();
+
+            String strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
+
+            var rafflesResults = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(strGetARafflesResponse);
+
+            foreach (var raffle in rafflesResults)
+            {
+                if (raffle.instant == 1 && raffle.tickets_total == 2)
+                {
+                    Double dblTP = raffle.ticket_price;
+                    if (Math.Abs(ticketAmount - dblTP) < lastRemainder)
+                    {
+                        assocOrderId = raffle.raffle_id;
+                        associatedTicketPrice = raffle.ticket_price;
+                        lastRemainder = Math.Abs(ticketAmount - dblTP);
+                    }
+                }
+            }
+
+            OrderID = assocOrderId;
+            TicketPrice = associatedTicketPrice;
+
+            return (goodReturn);
         }
 
 

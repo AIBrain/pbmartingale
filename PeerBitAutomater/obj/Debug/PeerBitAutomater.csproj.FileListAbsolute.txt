@@ -20,3 +20,4 @@ C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\bin\Debug\Newtonsoft.Json
 C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.Form1.resources
 C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.Properties.Resources.resources
 C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.csproj.GenerateResource.Cache
+C:\Users\Duncan\pbmartin\pbmartingale\PeerBitAutomater\obj\Debug\PeerBitAutomater.csprojResolveAssemblyReference.cache

@@ -122,6 +122,91 @@ namespace PeerBitAutomater
 
         }
 
+        /// <summary>
+        /// Places the order.
+        /// </summary>
+        /// <param name="OrderID">The order ID.</param>
+        /// <param name="NumberofTickets">The number of tickets.</param>
+        /// <returns>if successful</returns>
+        public Boolean PlaceOrder(String OrderID, int NumberofTickets)
+        {
+            Boolean returnOk = false;
+
+            if (_LoggedIn == false)
+            {
+                this.LoginPeerBet();
+            }
+            try
+            {
+                PBWebRequest pbRequest = new PBWebRequest();
+                String sPlaceOrderResponse = pbRequest.GetPBResponse("method=buytickets&key=" 
+                                + _APIKey + "&raffle=" + OrderID + "&tickets=" + NumberofTickets.ToString());
+                if (sPlaceOrderResponse.IndexOf("error") > -1)
+                {
+                    this.LoginPeerBet();
+                    sPlaceOrderResponse = pbRequest.GetPBResponse("method=getuserinfo&key=" + _APIKey);
+                }
+
+                var results = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(sPlaceOrderResponse);
+                if (results.success == "1")
+                    returnOk = true;
+
+            }
+            catch (Exception e)
+            {
+                returnOk = false;
+            }
+
+            return (returnOk);
+
+        }
+
+        /// <summary>
+        /// Checks if won given order.
+        /// </summary>
+        /// <param name="OrderID">The order ID.</param>
+        /// <returns>True if won, False if lost</returns>
+        public Boolean CheckIfWonOrder(String OrderID)
+        {
+            Boolean returnOk = false;
+
+            if (_LoggedIn == false)
+            {
+                this.LoginPeerBet();
+            }
+            try
+            {
+                PBWebRequest pbRequest = new PBWebRequest();
+                String sPlaceOrderResponse = pbRequest.GetPBResponse("method=getraffleinfo&key="
+                                + _APIKey + "&raffle=" + OrderID);
+                if (sPlaceOrderResponse.IndexOf("error") > -1)
+                {
+                    this.LoginPeerBet();
+                    sPlaceOrderResponse = pbRequest.GetPBResponse("method=getraffleinfo&key="
+                                + _APIKey + "&raffle=" + OrderID);
+                }
+
+                var results = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(sPlaceOrderResponse);
+                if (results.my_ticket_list == results.winning_ticket)
+                    returnOk = true;
+                else
+                    returnOk = false;
+            }
+            catch (Exception e)
+            {
+                returnOk = false;
+            }
+
+            return (returnOk);
+
+        }
+
+        /// <summary>
+        /// Finds the lowest instant order that is a 50/50.
+        /// </summary>
+        /// <param name="OrderID">The order ID.</param>
+        /// <param name="TicketPrice">The ticket price.</param>
+        /// <returns></returns>
         public Boolean GetLowestInstantHalfChance(ref String OrderID, ref Double TicketPrice)
         {
             Boolean goodReturn = false;

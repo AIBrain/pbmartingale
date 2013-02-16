@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PeerBitAutomater
@@ -21,6 +22,7 @@ namespace PeerBitAutomater
 
         private Boolean _LoggedIn = false;
 
+        public enum BetType {Instant, Fair};
 
         public String APIKey
         {
@@ -217,12 +219,17 @@ namespace PeerBitAutomater
             PBWebRequest pbRequest = new PBWebRequest();
 
             String strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
-
+            if (strGetARafflesResponse.IndexOf("error") > -1)
+            {
+                Thread.Sleep(2000);
+                strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
+            }
             var rafflesResults = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(strGetARafflesResponse);
 
             foreach (var raffle in rafflesResults)
             {
-                if (raffle.instant == 1 && raffle.tickets_total == 2)
+                if (raffle.instant == 1 && raffle.tickets_total == 2
+                    && raffle.tickets_sold == 1 && (raffle.ticket_price < (_balance*0.1)))
                 {
                     if (raffle.ticket_price < lowestTicketPrice)
                     {
@@ -240,36 +247,49 @@ namespace PeerBitAutomater
 
         /// <summary>
         /// Gets the closest order to the ticket amount specified.
+        /// Order must be greater than or equal to.
         /// Searches only instant orders with a double value
         /// </summary>
         /// <param name="ticketAmount">The ticket amount.</param>
-        /// <param name="OrderID">The order ID.</param>
-        /// <param name="TicketPrice">The ticket price.</param>
+        /// <param name="betType">Type of the bet.</param>
+        /// <param name="outstandingTickets">Outstanding tickets.</param>
+        /// <param name="purchasedTickets">Purchased tickets.</param>
+        /// <param name="OrderID">Returned order ID.</param>
+        /// <param name="TicketPrice">Returned ticket price.</param>
         /// <returns></returns>
-        public Boolean GetClosestOrderInstantDouble(Double ticketAmount, ref String OrderID, ref Double TicketPrice)
+        public Boolean GetGTClosestOrder(Double ticketAmount, BetType betType,
+                                         int outstandingTickets, int purchasedTickets,
+                                         ref String OrderID, ref Double TicketPrice)
         {
             Boolean goodReturn = false;
 
             Double lastRemainder = 99.0;
-            String assocOrderId = "";
+            String assocOrderId = "0";
             Double associatedTicketPrice = 0.0;
 
             PBWebRequest pbRequest = new PBWebRequest();
 
             String strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
-
+            if (strGetARafflesResponse.IndexOf("error") > -1)
+            {
+                Thread.Sleep(2000);
+                strGetARafflesResponse = pbRequest.GetPBResponse("method=getactiveraffles");
+            }
             var rafflesResults = Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(strGetARafflesResponse);
 
             foreach (var raffle in rafflesResults)
             {
-                if (raffle.instant == 1 && raffle.tickets_total == 2)
+                if (((betType == BetType.Instant && raffle.instant == 1) ||
+                    (betType == BetType.Fair && raffle.instant == 0)) &&
+                    raffle.tickets_total == outstandingTickets && 
+                    raffle.tickets_sold == purchasedTickets)
                 {
                     Double dblTP = raffle.ticket_price;
-                    if (Math.Abs(ticketAmount - dblTP) < lastRemainder)
+                    if (((dblTP - ticketAmount) > 0) && ((dblTP - ticketAmount) < lastRemainder))
                     {
                         assocOrderId = raffle.raffle_id;
                         associatedTicketPrice = raffle.ticket_price;
-                        lastRemainder = Math.Abs(ticketAmount - dblTP);
+                        lastRemainder = Math.Abs(dblTP - ticketAmount);
                     }
                 }
             }
